@@ -1,0 +1,31 @@
+kind = "web"
+previewPath = "/"
+title = "g.IA.llo"
+version = "1.0.0"
+id = "artifacts/giallo"
+router = "path"
+
+[[integratedSkills]]
+name = "react-vite"
+version = "1.0.0"
+
+[[services]]
+name = "web"
+paths = [ "/" ]
+localPort = 23236
+
+[services.development]
+run = "pnpm --filter @workspace/giallo run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/giallo", "run", "build" ]
+publicDir = "artifacts/giallo/dist/public"
+serve = "static"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
+
+[services.env]
+PORT = "23236"
+BASE_PATH = "/"
